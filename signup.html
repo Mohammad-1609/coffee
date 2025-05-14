@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fa">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ثبت‌نام - قـــــهوه چـــالـــوس</title>
+        <link rel="icon" href="./favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
+        <style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Vazirmatn', sans-serif;
+    }
+    a{
+      text-decoration: none !important;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #4e342e, #3e2723);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      direction: rtl;
+    }
+
+    .register-box {
+      background-color: #fff3e0;
+      padding: 2rem;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 450px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+
+    .register-box h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #4e342e;
+    }
+
+    .form-group {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      outline: none;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+    }
+
+    .form-group input:focus {
+      border-color: #795548;
+      background-color: #fff8e1;
+    }
+
+    .form-group.valid input {
+      border-color: #4caf50;
+    }
+
+    .form-group .check-icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #4caf50;
+      font-size: 1.2rem;
+      display: none;
+    }
+
+    .form-group.valid .check-icon {
+      display: block;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 0.8rem;
+      background-color: #6d4c41;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #5d4037;
+    }
+
+    @media(max-width: 500px) {
+      .register-box {
+        padding: 1.5rem;
+      }
+    }
+        </style>
+    </head>
+    <body>
+        <div class="register-box" data-aos="flip-up">
+            <h2>ثبت‌نام</h2>
+            <form id="registerForm">
+                <div class="form-group" id="usernameGroup">
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="نام کاربری"
+                        required
+                    >
+                    <span class="check-icon">✔</span>
+                </div>
+                <div class="form-group" id="emailGroup">
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="ایمیل"
+                        required
+                    >
+                    <span class="check-icon">✔</span>
+                </div>
+                <div class="form-group" id="passwordGroup">
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="رمز عبور"
+                        required
+                    >
+                    <span class="check-icon">✔</span>
+                </div>
+                <button type="submit" class="btn">ثبت‌نام</button>
+            </form>
+            <p style="text-align: center; margin-top: 1rem;">
+                قبلاً ثبت‌نام کرده‌اید؟
+                <a href="login.html" style="color: #4b2e2e; text-decoration: underline;" onclick="redirectToSignIn()">وارد شوید</a>
+            </p>
+        </div>
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>
+          AOS.init();
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+    const usernameInput = document.getElementById("username");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+
+    function isValidEmail(email) {
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return regex.test(email);
+    }
+
+    function validateField(input, conditionFn, groupId) {
+      const group = document.getElementById(groupId);
+      if (conditionFn(input.value.trim())) {
+        group.classList.add("valid");
+      } else {
+        group.classList.remove("valid");
+      }
+    }
+
+    usernameInput.addEventListener("input", () => {
+      validateField(usernameInput, val => val.length > 3, "usernameGroup");
+    });
+
+    emailInput.addEventListener("input", () => {
+      validateField(emailInput, isValidEmail, "emailGroup");
+    });
+
+    passwordInput.addEventListener("input", () => {
+      validateField(passwordInput, val => val.length >= 6, "passwordGroup");
+    });
+
+    document.getElementById("registerForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const usernameValid = usernameInput.value.trim().length > 3;
+      const emailValid = isValidEmail(emailInput.value.trim());
+      const passwordValid = passwordInput.value.trim().length >= 6;
+
+      if (usernameValid && emailValid && passwordValid) {
+        Swal.fire({
+          title: "ثبت‌نام موفق!",
+          text: "اکنون می‌توانید وارد شوید.",
+          icon: "success",
+          confirmButtonText: "باشه",
+          confirmButtonColor: "#6d4c41",
+        }).then(() => {
+          location.reload();
+        });
+      } else {
+        Swal.fire({
+          title: "خطا!",
+          text: "لطفاً تمام فیلدها را به‌درستی پر کنید.",
+          icon: "error",
+          confirmButtonText: "فهمیدم",
+          confirmButtonColor: "#d33",
+        });
+      }
+    });
+    function redirectToSignIn() {
+            window.location.href = "signin.html";
+          }
+        </script>
+    </body>
+</html>
