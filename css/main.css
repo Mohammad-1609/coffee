@@ -118,6 +118,29 @@ body {
 @media screen and (max-width: 500px) {
   .search-icon,
   .sign-wrapper {
+    position: relative;
+    display: flex;
+    border: 1px solid rgba(0, 0, 0, 10.6%);
+    height: 46px;
+    padding: 10px;
+    width: 107px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 47px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    top: -49px;
+    background-color: #fff;
+    right: 230px;
+  }
+  .search-icon {
+    display: none;
+  }
+  .signin-icon {
+    vertical-align: -2px;
+    font-size: 16px;
+    margin-left: 3px;
+    color: #333333;
     display: none;
   }
   .custom-nav-link {
@@ -131,11 +154,13 @@ body {
     box-shadow: 1px 1px 5px 1px #b0a27b !important;
   }
   .cart-wrapper {
-    margin-top: -50px !important;
-    margin-right: 225px;
+    display: none;
   }
   .navbar-brand {
     margin-right: 86px;
+  }
+  .signin-button {
+    top: 13px;
   }
 }
 /* end menu style */
